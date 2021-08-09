@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" name="ISZR-EVO" packages=""
+	shutdownHook="disable">
+
+	<Properties>
+
+		<!-- see: https://docs.spring.io/spring-boot/docs/2.1.1.RELEASE/reference/html/boot-features-logging.html#boot-features-logging-color-coded-output -->
+		<!-- note: replace %clr() -> %clr{} -->
+		<Property name="PATTERN_STDOUT">%clr{%d{yyyy-MM-dd E HH:mm:ss.SSS}}{blue} %clr{%-5p} %clr{---}{faint} %clr{[%-30thread]}{cyan} %clr{%-40.40logger{0}}{blue} %clr{#}{red} %clr{%m}%n</Property>
+
+	</Properties>
+	<Appenders>
+		<Console name="STDOUT" target="SYSTEM_OUT">
+			<PatternLayout pattern="${PATTERN_STDOUT}" />
+		</Console>
+	</Appenders>
+
+	<Loggers>
+		<Root level="INFO">
+			<appender-ref ref="STDOUT" />
+		</Root>
+
+		<Logger name="org.apache.kafka" level="off" />
+	</Loggers>
+
+</Configuration> 

@@ -1,0 +1,47 @@
+hserver:
+  port: 8081
+ 
+spring:
+  main:
+    banner-mode: "off"
+  application:
+    name: kafka-test-leak
+    
+camel:
+  springboot:
+    name: kafka-test-leak
+    message-history: true
+  component:
+    kafka:
+      group-id: test-leak
+      brokers: localhost:29092
+      consumer-streams: 1
+      synchronous: true
+      break-on-first-error: true
+
+# Actuator configuration.
+management:
+  security:
+    enabled: false
+  endpoints:
+    enabled-by-default: true
+  endpoint:
+    info:
+      enabled: true
+    health:
+      probes:
+        enabled: true
+        livenessState:
+          enabled: true
+        readinessState:
+          enabled: true
+      enabled: true
+      show-details: always
+      group:
+        liveness:
+          include: livenessProbe,camelHealth
+        readiness:
+          include: readinessProbe,camelHealth
+
+logging:
+  config: classpath:config/log4j2.xml
